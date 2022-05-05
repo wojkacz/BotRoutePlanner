@@ -2,11 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Main {
-
-    static int[] botStartLocation;
-    static int[] botDesiredLocation;
-    static String botDesiredProductName;
+public class Loader {
 
     public static Module[][] loadGrid(String fileName){
         Scanner scanner;
@@ -60,17 +56,18 @@ public class Main {
         return grid;
     }
 
-    public static boolean loadJob(String fileName){
+    public static Bot loadJob(String fileName){
         Scanner scanner;
         try {
             scanner = new Scanner(new File(fileName));
         } catch (FileNotFoundException e) {
             System.out.println("File " + fileName + " not found!");
-            return false;
+            return null;
         }
 
-        botStartLocation = new int[2];
-        botDesiredLocation = new int[2];
+        int[] botStartLocation = new int[2];
+        int[] botDesiredLocation = new int[2];
+        String botDesiredProductName;
 
         botStartLocation[0] = scanner.nextInt();
         botStartLocation[1] = scanner.nextInt();
@@ -81,7 +78,7 @@ public class Main {
         botDesiredProductName = scanner.next();
 
         scanner.close();
-        return true;
+        return new Bot(botStartLocation, botDesiredLocation, botDesiredProductName);
     }
 
     public static void main(String[] args) {
@@ -89,11 +86,12 @@ public class Main {
             System.out.println("Incorrect amount of arguments! [Expected 2]");
 
         Module[][] grid = loadGrid(args[0]);
-
         if(grid == null) return;
-        if(!loadJob(args[1])) return;
 
-        System.out.println("Wczytywanie dziala!");
+        Bot bot = loadJob(args[1]);
+        if(bot == null) return;
+
+        bot.findPath(grid);
     }
 
 
