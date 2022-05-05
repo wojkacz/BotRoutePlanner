@@ -34,9 +34,17 @@ public class Bot {
         else return from.getDriveTime();
     }
 
-    public void findPath(Module[][] grid){
+    public void findBestPath(Module[][] grid){
         List<int[]> desiredProductLocations = findProduct(grid);
         for(int[] t : desiredProductLocations)
-            System.out.printf("[%s, %s] at layer %s\n", t[0], t[1], t[2]);
+            System.out.printf("[%s, %s] at layer %s, time -> %s\n", t[0], t[1], t[2], findPath(grid, t));
+    }
+
+    public Double findPath(Module[][] grid, int[] productLocation){
+        Double time = 0.0;
+
+        // Algorytm
+
+        return time;
     }
 }

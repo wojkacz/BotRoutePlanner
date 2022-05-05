@@ -91,7 +91,7 @@ public class Loader {
         Bot bot = loadJob(args[1]);
         if(bot == null) return;
 
-        bot.findPath(grid);
+        bot.findBestPath(grid);
     }
 
 
