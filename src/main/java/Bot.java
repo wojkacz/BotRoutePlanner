@@ -36,7 +36,7 @@ public class Bot {
 
     // Method responsible for getting time of travel between two modules
     // It is weight of the edge
-    private double getTravelTime(Module[][] grid, Node one, Node two){
+    protected double getTravelTime(Module[][] grid, Node one, Node two){
         Module from = grid[one.getLocation()[0]][one.getLocation()[1]];
         Module to = grid[two.getLocation()[0]][two.getLocation()[1]];
 
@@ -131,5 +131,17 @@ public class Bot {
             }
         }
         return gridNode;
+    }
+
+    public int[] getStartLocation() {
+        return startLocation;
+    }
+
+    public int[] getDesiredLocation() {
+        return desiredLocation;
+    }
+
+    public String getDesiredProductName() {
+        return desiredProductName;
     }
 }
