@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Loader {
@@ -69,12 +71,15 @@ public class Loader {
         int[] botDesiredLocation = new int[2];
         String botDesiredProductName;
 
+        // Loading starting position
         botStartLocation[0] = scanner.nextInt();
         botStartLocation[1] = scanner.nextInt();
 
+        // Loading final position
         botDesiredLocation[0] = scanner.nextInt();
         botDesiredLocation[1] = scanner.nextInt();
 
+        // Loading desired product name
         botDesiredProductName = scanner.next();
 
         scanner.close();
@@ -91,7 +96,16 @@ public class Loader {
         Bot bot = loadJob(args[1]);
         if(bot == null) return;
 
-        bot.findBestPath(grid);
+        Object[] result = bot.findBestPath(grid);
+
+        Double time = (Double) result[0];
+        int pathLength = (int) result[1];
+        List<int[]> path = (ArrayList<int[]>) result[2];
+
+        System.out.println(pathLength);
+        System.out.printf("%.1f", time);
+        for (int[] p : path)
+            System.out.print("\n" + p[0] + " " + p[1]);
     }
 
 
